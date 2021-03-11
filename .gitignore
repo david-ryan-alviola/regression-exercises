@@ -109,6 +109,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+env.py
 
 # Spyder project settings
 .spyderproject
@@ -127,3 +128,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Scratch notebooks
+wrangle.ipynb
+
+# Imported utilities and generated files
+explore.py
+telco_churn.csv
