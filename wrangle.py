@@ -3,7 +3,7 @@ import numpy as np
 from env import user, password, host
 from utilities import generate_db_url, generate_df
 
-def acquire_telco(cached=True):
+def _acquire_telco(cached=True):
     telco_query = """
     SELECT *
            FROM customers
@@ -14,7 +14,7 @@ def acquire_telco(cached=True):
     
     return generate_df("telco_churn.csv", telco_query, generate_db_url(user, password, host, "telco_churn"), cached)
 
-def clean_telco(telco_df):
+def _clean_telco(telco_df):
     clean_df = telco_df.copy()
     
     # Only want two year contracts
@@ -33,5 +33,5 @@ def clean_telco(telco_df):
     return two_year_customers
 
 def wrangle_telco():
-    return clean_telco(acquire_telco())
+    return _clean_telco(_acquire_telco())
     
