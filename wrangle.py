@@ -30,6 +30,9 @@ def _clean_telco(telco_df):
     # Change total charges to float
     two_year_customers.total_charges = two_year_customers.total_charges.astype(float)
     
+    # Set index to customer ID
+    two_year_customers = two_year_customers.set_index('customer_id')
+    
     return two_year_customers
 
 def wrangle_telco():

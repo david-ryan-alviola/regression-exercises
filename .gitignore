@@ -133,5 +133,5 @@ dmypy.json
 wrangle.ipynb
 
 # Imported utilities and generated files
-explore.py
+explore_utils.py
 telco_churn.csv
