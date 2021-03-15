@@ -13,18 +13,26 @@ def months_to_years(df):
     
     return df_copy
 
-def plot_categorical_and_continuous_vars(df, cont_vars, cat_vars, target, target_type):
+def plot_categorical_and_continuous_vars(df, cont_vars, cat_vars, target, target_type="continuous"):
+    var_list = []
     
     if target_type == "categorical":
         for categorical in cat_vars:
             sns.heatmap(df[[target, categorical]])
+            plt.show()
         
-        for continous in cont_vars:
-            sns.swarmplot(x=continous, y=target, data=df)
+        var_list = cont_vars
     
     else:
         for continous in cont_vars:
             sns.relplot(x=continous, y=target, data=df)
+            plt.show()
             
-        for categorical in cat_vars:
-            sns.swarmplot(x=categorical, y=target, data=df)
+        var_list = cat_vars
+            
+    _generate_swarmplots(df, var_list, target)
+            
+def _generate_swarmplots(df, var_list, target):
+    for var in var_list:
+            sns.swarmplot(x=var, y=target, data=df)
+            plt.show()
