@@ -6,6 +6,16 @@ from statsmodels.formula.api import ols
 from sklearn.metrics import mean_squared_error
 from math import sqrt
 
+def _compare_sum_squared_errors(model_sse2, baseline_sse2):
+    delta = model_sse2 - baseline_sse2
+    
+    if (model_sse2 < baseline_sse2):
+        print(f"The model performs better than the baseline with an SSE2 value of {model_sse2} and delta of {delta}")
+        return True
+    else:
+        print(f"The baseline performs better than the model with an SSE2 value of {baseline_sse2} and delta of {delta}")
+        return False
+
 def plot_residuals(y, yhat):
     sns.scatterplot(x=y, y=yhat - y)
     plt.title("Residuals")
@@ -45,7 +55,7 @@ def better_than_baseline(y, yhat):
     sse2, ess, tss, mse, rmse = regression_errors(y, yhat)
     sse2_baseline, mse_baseline, rmse_baseline = baseline_mean_errors(y)
     
-    return compare_sum_squared_errors(sse2, sse2_baseline)
+    return _compare_sum_squared_errors(sse2, sse2_baseline)
 
 def model_signficance(ols_model):
     r2 = ols_model.rsquared
