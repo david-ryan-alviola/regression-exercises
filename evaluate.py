@@ -10,10 +10,10 @@ def _compare_sum_squared_errors(model_sse2, baseline_sse2):
     delta = model_sse2 - baseline_sse2
     
     if (model_sse2 < baseline_sse2):
-        print(f"The model performs better than the baseline with an SSE2 value of {model_sse2} and delta of {delta}")
+        print(f"The MODEL performs better than the baseline with an SSE value of {model_sse2} and delta of {delta}")
         return True
     else:
-        print(f"The baseline performs better than the model with an SSE2 value of {baseline_sse2} and delta of {delta}")
+        print(f"The BASELINE performs better than the model with an SSE value of {baseline_sse2} and delta of {delta}")
         return False
 
 def plot_residuals(y, yhat):
@@ -55,6 +55,11 @@ def better_than_baseline(y, yhat):
     sse2, ess, tss, mse, rmse = regression_errors(y, yhat)
     sse2_baseline, mse_baseline, rmse_baseline = baseline_mean_errors(y)
     
+    model_errors = {'sse' : sse2, 'ess' : ess, 'tss' : tss, 'mse' : mse, 'rmse' : rmse}
+    baseline_errors = {'sse' : sse2_baseline, 'mse' : mse_baseline, 'rmse' : rmse_baseline}
+
+    _print_comparison(model_errors, baseline_errors)
+    
     return _compare_sum_squared_errors(sse2, sse2_baseline)
 
 def model_signficance(ols_model):
@@ -64,3 +69,10 @@ def model_signficance(ols_model):
 
     print(f"variance:  {r2}, p:  {p_value}, a: {alpha},  signficant:  {p_value < alpha}")
     return r2, p_value, p_value < alpha
+
+def _print_comparison(model_errors, baseline_errors):
+    print("----------------------------------------------")
+    print(pd.DataFrame(index=model_errors.keys(), columns=["model"], data=model_errors.values()))
+    print("----------------------------------------------")
+    print(pd.DataFrame(index=baseline_errors.keys(), columns=["baseline"], data=baseline_errors.values()))
+    print("----------------------------------------------")
